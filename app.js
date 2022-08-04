@@ -9,7 +9,7 @@ app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended:true}));
 app.get("/",function(req,res){
     res.sendFile(__dirname+"/signup.html");
-    console.log(process.env.MAILCHIPAPI);
+    
 })
 app.post("/",function(req,res){
 var firstname=req.body.firstname;
