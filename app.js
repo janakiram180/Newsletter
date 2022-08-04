@@ -1,3 +1,4 @@
+require('dotenv').config();
 const https = require("https");
 const express =require("express");
 const request = require("request");
@@ -8,6 +9,7 @@ app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended:true}));
 app.get("/",function(req,res){
     res.sendFile(__dirname+"/signup.html");
+    console.log(process.env.MAILCHIPAPI);
 })
 app.post("/",function(req,res){
 var firstname=req.body.firstname;
@@ -26,10 +28,11 @@ var data={
     ]
 }
 var jsonData =JSON.stringify(data);
-const url = "https://us10.api.mailchimp.com/3.0/listshero/3cb03fdace";
+const url = process.env.MAILCHIPAPI;
+
 const options={
     method:"POST",
-    auth:"janakiram1:d5953833897ed7cde9182384a23bddef-us10",
+    auth:process.env.APIKEY,
 }
 const request=https.request(url,options,function(response){
     if(response.statusCode===200){
@@ -53,7 +56,3 @@ app.listen(process.env.PORT || 3000,function(){
     console.log("The server is running port 3000");
 })
 
-//API KEY
-// d5953833897ed7cde9182384a23bddef-us10
-//list id
-//3cb03fdace
